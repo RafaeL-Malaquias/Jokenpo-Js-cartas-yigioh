@@ -46,12 +46,28 @@
 
 
         <div class="container_right">
-            <div
-             class="card-box__container">
+            <div class="card-box__container">
                 <div class="card-box framed " id="computer-card"></div>
 
-                <div class="card-versus">
-                    
+                <div class="card-versus_container">
+                    <div class="versus-top">
+
+                        <div class="card-infield">
+                            <img id="player-field-card" height="180px" width="125px">
+                        </div>
+
+                        <img src="src/assets/icons/millenium2.png" height="100px">
+                        
+                        <div class="card-infield">
+                        <img id="computer-field-card" height="180px" width="125px"                            >
+                        </div>
+                    </div>
+
+                    <div class="versus-bottom">
+                        <button id="next-duel" class="rpgui-button" onclick="resetDuel()">
+                            Ganhou
+                        </button>
+                    </div>
                 </div>
 
                 <div class="card-box framed " id="player-card"></div>
