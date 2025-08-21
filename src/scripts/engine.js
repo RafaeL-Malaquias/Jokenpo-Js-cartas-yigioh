@@ -44,7 +44,7 @@ const cardDate = [ // poderia esta vindo de uma API (bancos de dados)
         id: 1,
         name: 'Dark Magician',
         type: 'Rock',
-        img: ` ${pathImages}magicion.png`,
+        img: ` ${pathImages}magician.png`,
         WinOf: [1],
         LoseOf: [0]
      },
@@ -75,17 +75,24 @@ async function createCardImage(IdCard, fieldSide) {
 
 
     if(fieldSide === playerSides.player1 ){
-        cardImage.addEventListener('click', () => {
+            cardImage.addEventListener('mouseover', () => {
+            drawSelectedCard(IdCard);
+        })
+            cardImage.addEventListener('click', () => {
             setCardsField(cardImage.getAttribute('data-id'));
         })
     }
 
-    cardImage.addEventListener('mouseover', () => {
-        drawSelectedCard(IdCard);
-    })
+
     return cardImage
 }
 
+async function drawSelectedCard(index) {
+    state.cardSprites.avatar.src = cardDate[index].img;
+    state.cardSprites.name.innerText = cardDate[index].name;
+    state.cardSprites.type.innerText = "Attribute : " + cardDate[index].type;
+
+}
 
 async function drawCards(cardNumbers, fieldSide) {
     for(let i = 0; i <cardNumbers; i++){
