@@ -87,6 +87,29 @@ async function createCardImage(IdCard, fieldSide) {
     return cardImage
 }
 
+// function para setar as cartas no campo
+async function setCardsField(cardId) {
+
+    // remove todas cartas antes.
+    await  removeAllCarsImages();
+    let computerCardId = await getRandomCardId();
+
+    state.filedCards.player.style.display = 'block';
+    state.filedCards.computer.style.display = 'block';
+
+    // 'set' as img, passando img
+    state.filedCards.player.src = cardDate[cardId].img;
+    state.filedCards.computer.src = cardDate[computerCardId].img;
+
+    let duelResult = await checkDuelResult(cardId, computerCardId);
+
+    await updateScore();
+    await drawButton();
+}
+
+
+//
+
 async function drawSelectedCard(index) {
     state.cardSprites.avatar.src = cardDate[index].img;
     state.cardSprites.name.innerText = cardDate[index].name;
