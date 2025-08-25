@@ -19,6 +19,12 @@ const state = {
         player: document.getElementById('player-field-card'),
         computer: document.getElementById('computer-field-card')
     },
+    playerSides: {
+        player1:  'player-card',
+        player1BOX: document.querySelector("#player-card"),
+        computer: 'computer-card',
+        computerBOX: document.querySelector("#computer-card"),
+    },
     actions: {
         button: document.getElementById('next-duel'),
     },
@@ -92,6 +98,7 @@ async function setCardsField(cardId) {
 
     // remove todas cartas antes.
     await  removeAllCarsImages();
+
     let computerCardId = await getRandomCardId();
 
     state.filedCards.player.style.display = 'block';
@@ -101,10 +108,52 @@ async function setCardsField(cardId) {
     state.filedCards.player.src = cardDate[cardId].img;
     state.filedCards.computer.src = cardDate[computerCardId].img;
 
-    let duelResult = await checkDuelResult(cardId, computerCardId);
+     let duelResult = await checkDuelResult(cardId, computerCardId);
 
     await updateScore();
-    await drawButton();
+    await drawButton(duelResult);
+}
+
+async function drawButton(text) {
+    state.actions.button.innerText = text
+    state.actions.button.style.display = 'block';
+}
+
+
+async function updateScore(){
+    state.score.ScoreBox.innerText = `Win: ${state.score.playerScore}  Lose: ${state.score.computerScore}`;
+
+}
+
+// função verificar resultado do duelo
+async function checkDuelResult(playerCardId, computerCardId) {
+    let duelResults = "Empate"    
+    playerCard = cardDate[playerCardId];
+
+    //   
+
+    if(playerCard.WinOf.includes(computerCardId)){
+        duelResults = "Ganhou";
+        state.score.playerScore += 1;
+    }
+
+    if(playerCard.LoseOf.includes(computerCardId)) {
+        duelResults = "Perdeu";
+        state.score.computerScore += 1;
+    }
+    return duelResults;
+}
+
+
+// removendo as cartas
+async function removeAllCarsImages() {
+
+    let { computerBOX, player1BOX } = state.playerSides;
+    let imgElements = computerBOX.querySelectorAll("img");
+    imgElements.forEach((img) => img.remove());
+
+    imgElements = player1BOX.querySelectorAll("img");
+    imgElements.forEach((img) => img.remove());
 }
 
 
